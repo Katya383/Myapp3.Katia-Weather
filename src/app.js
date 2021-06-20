@@ -23,6 +23,14 @@ function formatDate(timestamp) {
   return `${day} ${hours}${minutes}`;
 }
 
+function formatDay(timestamp){
+  let date = new Date (timestamp * 1000);
+  let day =date.getDay();
+  lets days =[ "Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+  return days[day];
+}
+
 function displayForecast(response) {
   let forecast = response.data.daily;
 
@@ -95,10 +103,12 @@ function displayTemperatures(response) {
 function search(city) {
   let apiKey = "ae4032eef8a3f74abc226eb2373f89f0";
   let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?id=${city}&appid=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayTemperature); 
 }
+
 function handleSubmit(event) {
   event.preventDefault();
-  let cityElement = document.querySelector("#city-input");
+  let cityInputElement = document.querySelector("#city-input");
   search(cityInputElement.value);
 }
 
